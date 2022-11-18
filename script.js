@@ -1,18 +1,23 @@
-const countToDate = new Date().setHours(new Date().getHours() + 24)
+const countToDate = new Date("November 30, 2022 11:59:59").getTime();
+console.log(countToDate)
 let previousTimeBetweenDates
 setInterval(() => {
-  const currentDate = new Date()
-  const timeBetweenDates = Math.ceil((countToDate - currentDate) / 1000)
+  const currentDate = new Date().getTime()
+  const timeBetweenDates = (countToDate - currentDate)
   flipAllCards(timeBetweenDates)
 
   previousTimeBetweenDates = timeBetweenDates
 }, 250)
 
 function flipAllCards(time) {
-  const seconds = time % 60
-  const minutes = Math.floor(time / 60) % 60
-  const hours = Math.floor(time / 3600)
+  const seconds = Math.floor((time % (1000 * 60)) / 1000);
+  const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const days = Math.floor(time / (1000 * 60 * 60 * 24));
+  console.log(days)
 
+  flip(document.querySelector("[data-days-tens]"), Math.floor(days / 10))
+  flip(document.querySelector("[data-days-ones]"), days % 10)
   flip(document.querySelector("[data-hours-tens]"), Math.floor(hours / 10))
   flip(document.querySelector("[data-hours-ones]"), hours % 10)
   flip(document.querySelector("[data-minutes-tens]"), Math.floor(minutes / 10))
