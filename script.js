@@ -1,5 +1,4 @@
 const countToDate = new Date("November 30, 2022 11:59:59").getTime();
-console.log(countToDate)
 let previousTimeBetweenDates
 setInterval(() => {
   const currentDate = new Date().getTime()
